@@ -1,14 +1,12 @@
 PImage img;
 import processing.serial.*;
 
+Serial myPort;
 void setup() {
   fullScreen();
-    //size(240, 240);
-
-  //Serial porta1;
-  
-  //PATH DA IMAGEM
-  img = loadImage("./imgs/troll-face.jpg");
+  String portName = "/dev/ttyUSB0";
+  myPort = new Serial(this, portName, 9600);
+  img = loadImage("./imgs/estrela.bmp");
 }
 
 
@@ -21,6 +19,11 @@ void draw() {
  float y;
  int xx;
  int yy;
+ //int cor;
+ int w;
+ int h;
+ w = 1;
+ h = 1;
  
  
  //CALCULO DOS FATORES DE DIVISAO BASEADOS NA RESOLUCAO DO MONITOR PARA CABER NA MATRIZ 240x240
@@ -45,6 +48,9 @@ void draw() {
  
  xx = int(x);
  yy = int(y);
+ color cor = img.get(xx, yy);
+ cor = cor & 0x00FF; //PEGAR SOMENTE O PRIMEIRO BYTE DO RGB
+   
    
 //PRINT DA IMAGEM A SER TATEADA
  image(img, fatorX, 0, displayHeight, displayHeight);
@@ -55,5 +61,9 @@ void draw() {
  println ("FATOR  X:  " + fatorX);
  println ("FATOR  Y:  " + fatorY);
  println ("RESOLUCAO: " + displayWidth + ", " + displayHeight);
+ println ("COR  : " + cor);
+ 
+myPort.write(cor);
+ 
     
 }
