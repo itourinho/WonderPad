@@ -8,7 +8,7 @@ void setup() {
   //Serial porta1;
   
   //PATH DA IMAGEM
-  img = loadImage("/media/tourinho/Storage/DEPED/Hack_2017/troll-face.jpg");
+  img = loadImage("./imgs/troll-face.jpg");
 }
 
 
